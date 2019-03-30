@@ -2,6 +2,11 @@
   <div class="col-md-4">
     <h1>Sign up</h1>
     <hr><br>
+    <div *ngIf="errorMessage">
+      <div class="alert alert-danger" role="alert">
+        {{errorMessage}}
+      </div>
+    </div>
     <form (ngSubmit)="onSubmit()" ngNativeValidate>
       <div class="form-group">
         <label for="email">Email</label>

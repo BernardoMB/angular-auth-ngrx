@@ -1,25 +1,75 @@
 import { Action } from '@ngrx/store';
 
-export enum ActionTypes {
-    LOGIN = '[Auth] Login',
-    LOGIN_SUCCESS = '[Auth] Login Success',
-    LOGIN_FAILURE = '[Auth] Login Failure'
+export enum AuthActionTypes {
+    LogIn = '[Auth] LogIn',
+    LogInSuccess = '[Auth] LogInSuccess',
+    LogInFailure = '[Auth] LogInFailure',
+    SignUp = '[Auth] SignUp',
+    SignUpSuccess = '[Auth] SignUpSuccess',
+    SignUpFailure = '[Auth] SignUpFailure',
+    LogOut = '[Auth] LogOut',
+    LogOutSuccess = '[Auth] LogOutSuccess',
+    LogOutFailure = '[Auth] LogOutFailure',
+    GetStatus = '[Auth] GetStatus'
 }
 
-export class LoginAction implements Action {
-    readonly type = ActionTypes.LOGIN;
+export class LogIn implements Action {
+    readonly type = AuthActionTypes.LogIn;
     constructor(public payload: { email: string, password: string }) { }
 }
-
-export class LoginSuccessAction implements Action {
-    readonly type = ActionTypes.LOGIN_SUCCESS;
+export class LogInSuccess implements Action {
+    readonly type = AuthActionTypes.LogInSuccess;
     constructor(public payload: { token: string, email: string }) { }
 }
-
-export class LoginFailureAction implements Action {
-    readonly type = ActionTypes.LOGIN_FAILURE;
+export class LogInFailure implements Action {
+    readonly type = AuthActionTypes.LogInFailure;
     constructor(public payload: { error: any }) { }
 }
 
+export class SignUp implements Action {
+    readonly type = AuthActionTypes.SignUp;
 
-export type Actions = LoginAction | LoginSuccessAction | LoginFailureAction;
+    constructor(public payload: any) { }
+}
+export class SignUpSuccess implements Action {
+    readonly type = AuthActionTypes.SignUpSuccess;
+
+    constructor(public payload: any) { }
+}
+export class SignUpFailure implements Action {
+    readonly type = AuthActionTypes.SignUpFailure;
+
+    constructor(public payload: any) { }
+}
+
+export class LogOut implements Action {
+    readonly type = AuthActionTypes.LogOut;
+
+    constructor(public payload: any) { }
+}
+export class LogOutSuccess implements Action {
+    readonly type = AuthActionTypes.LogOutSuccess;
+
+    constructor(public payload: any) { }
+}
+export class LogOutFailure implements Action {
+    readonly type = AuthActionTypes.LogOutFailure;
+
+    constructor(public payload: any) { }
+}
+
+export class GetStatus implements Action {
+    readonly type = AuthActionTypes.GetStatus;
+}
+
+export type Actions = LogIn
+    | LogInSuccess
+    | LogInFailure
+    | SignUp
+    | SignUpSuccess
+    | SignUpFailure
+    | LogOut
+    | LogOutSuccess
+    | LogOutFailure
+    | GetStatus
+    ;

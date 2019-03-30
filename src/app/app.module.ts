@@ -9,14 +9,17 @@ import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { LogInComponent } from './components/log-in/log-in.component';
 import { AuthService } from './services/auth.service';
 import { RootStoreModule } from './store';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { TokenInterceptor, ErrorInterceptor } from './services/token.interceptor';
+import { StatusComponent } from './components/status/status.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LandingComponent,
     SignUpComponent,
-    LogInComponent
+    LogInComponent,
+    StatusComponent
   ],
   imports: [
     BrowserModule,
@@ -25,7 +28,15 @@ import { HttpClientModule } from '@angular/common/http';
     RootStoreModule,
     HttpClientModule
   ],
-  providers: [AuthService],
+  providers: [AuthService, {
+    provide: HTTP_INTERCEPTORS,
+    useClass: TokenInterceptor,
+    multi: true
+  }, {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorInterceptor,
+      multi: true
+    }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

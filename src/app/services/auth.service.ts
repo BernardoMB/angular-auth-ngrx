@@ -11,12 +11,18 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
+  getStatus(): Observable<User> {
+    const url = `${this.BASE_URL}/status`;
+    return this.http.get<User>(url);
+  }
+
   getToken(): string {
     return localStorage.getItem('token');
   }
 
   logIn(email: string, password: string): Observable<any> {
     const url = `${this.BASE_URL}/login`;
+    console.log(`Making https request to url ${url}`);
     return this.http.post<User>(url, { email, password });
   }
 

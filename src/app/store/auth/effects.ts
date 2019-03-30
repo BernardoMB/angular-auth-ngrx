@@ -15,31 +15,31 @@ export class AuthStoreEffects {
 
     @Effect()
     loginEffect$: Observable<Action> = this.actions$.pipe(
-        ofType<featureActions.LoginAction>(
-            featureActions.ActionTypes.LOGIN
+        ofType<featureActions.LogIn>(
+            featureActions.AuthActionTypes.LogIn
         ),
-        switchMap(action =>
-            this.authService
+        switchMap(action => {
+            return this.authService
                 .logIn(action.payload.email, action.payload.password)
                 .pipe(
                     map((user) => {
                         console.log(user);
-                        return new featureActions.LoginSuccessAction({ token: user.token, email: action.payload.email });
+                        return new featureActions.LogInSuccess({ token: user.token, email: action.payload.email });
                     }),
                     catchError(error => {
                         console.log(error);
-                        return observableOf(new featureActions.LoginFailureAction({ error }));
+                        return observableOf(new featureActions.LogInFailure({ error }));
                     })
-                )
-        )
+                );
+        })
     );
 
     @Effect({ dispatch: false })
     loginSuccessEffect: Observable<Action> = this.actions$.pipe(
-        ofType<featureActions.LoginSuccessAction>(
-            featureActions.ActionTypes.LOGIN_SUCCESS
+        ofType<featureActions.LogInSuccess>(
+            featureActions.AuthActionTypes.LogInSuccess
         ),
-        tap((action: featureActions.LoginSuccessAction) => {
+        tap((action: featureActions.LogInSuccess) => {
             localStorage.setItem('token', action.payload.token);
             this.router.navigateByUrl('/');
         })
@@ -47,9 +47,68 @@ export class AuthStoreEffects {
 
     @Effect({ dispatch: false })
     loginFailureEffect: Observable<Action> = this.actions$.pipe(
-        ofType<featureActions.LoginFailureAction>(
-            featureActions.ActionTypes.LOGIN_FAILURE
+        ofType<featureActions.LogInFailure>(
+            featureActions.AuthActionTypes.LogInFailure
         )
+    );
+
+    @Effect()
+    signUpEffect$: Observable<Action> = this.actions$.pipe(
+        ofType<featureActions.SignUp>(
+            featureActions.AuthActionTypes.SignUp
+        ),
+        switchMap(action =>
+            this.authService
+                .signUp(action.payload.email, action.payload.password)
+                .pipe(
+                    map((user) => {
+                        console.log(user);
+                        return new featureActions.SignUpSuccess({ token: user.token, email: action.payload.email });
+                    }),
+                    catchError(error => {
+                        console.log(error);
+                        return observableOf(new featureActions.SignUpFailure({ error }));
+                    })
+                )
+        )
+    );
+
+    @Effect({ dispatch: false })
+    signUpSuccessEffect: Observable<Action> = this.actions$.pipe(
+        ofType<featureActions.SignUpSuccess>(
+            featureActions.AuthActionTypes.SignUpSuccess
+        ),
+        tap((action: featureActions.SignUpSuccess) => {
+            localStorage.setItem('token', action.payload.token);
+            this.router.navigateByUrl('/');
+        })
+    );
+
+    @Effect({ dispatch: false })
+    signUpFailureEffect: Observable<Action> = this.actions$.pipe(
+        ofType<featureActions.SignUpFailure>(
+            featureActions.AuthActionTypes.SignUpFailure
+        )
+    );
+
+    @Effect({ dispatch: false })
+    logOutEffect: Observable<Action> = this.actions$.pipe(
+        ofType<featureActions.LogOut>(
+            featureActions.AuthActionTypes.LogOut
+        ),
+        tap((user) => {
+            localStorage.removeItem('token');
+        })
+    );
+
+    @Effect({ dispatch: false })
+    getStatusEffect: Observable<Action> = this.actions$.pipe(
+        ofType<featureActions.GetStatus>(
+            featureActions.AuthActionTypes.GetStatus
+        ),
+        tap((action: featureActions.GetStatus) => {
+            return this.authService.getStatus();
+        })
     );
 
 }
