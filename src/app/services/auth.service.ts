@@ -22,7 +22,7 @@ export class AuthService {
 
   logIn(email: string, password: string): Observable<any> {
     const url = `${this.BASE_URL}/login`;
-    console.log(`Making https request to url ${url}`);
+    console.log(`Making http resquest to url ${url}`);
     return this.http.post<User>(url, { email, password });
   }
 
