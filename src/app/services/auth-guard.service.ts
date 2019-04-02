@@ -25,7 +25,6 @@ export class AuthGuardService implements CanActivate {
       this.isAuthenticated = state.isAuthenticated;
     });
     if (!this.auth.getToken() || !this.isAuthenticated) {
-      console.log('Authentication needed. Redirecting to log-in page');
       this.router.navigateByUrl('/log-in');
       return false;
     }

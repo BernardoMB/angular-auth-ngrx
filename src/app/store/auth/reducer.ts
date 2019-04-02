@@ -15,7 +15,6 @@ export function authReducer(state = initialState, action: Actions): State {
             };
         }
         case AuthActionTypes.LogInFailure: {
-            console.log('LoginFailure reducer changing state');
             return {
                 ...state,
                 errorMessage: 'Incorrect email and/or password.'
