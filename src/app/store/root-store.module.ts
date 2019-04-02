@@ -7,6 +7,7 @@ import { DashboardStoreModule } from './dashboard';
 import { AccountManagementStoreModule } from './account-management';
 import { ProductCatalogStoreModule } from './product-catalog';
 import { SuperadminStoreModule } from './superadmin';
+import { StoreRouterConnectingModule, routerReducer } from '@ngrx/router-store';
 
 @NgModule({
   declarations: [],
@@ -17,7 +18,10 @@ import { SuperadminStoreModule } from './superadmin';
     AccountManagementStoreModule,
     ProductCatalogStoreModule,
     SuperadminStoreModule,
-    StoreModule.forRoot({}),
+    StoreModule.forRoot({
+      router: routerReducer
+    }),
+    StoreRouterConnectingModule.forRoot(),
     EffectsModule.forRoot([])
   ]
 })

@@ -2,7 +2,6 @@ import { Injectable, Injector } from '@angular/core';
 import {
   HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpErrorResponse
 } from '@angular/common/http';
-
 import { AuthService } from './auth.service';
 import { Router } from '@angular/router';
 import { Observable, of as observableOf } from 'rxjs';
@@ -34,6 +33,7 @@ export class ErrorInterceptor implements HttpInterceptor {
     return next.handle(request)
       .pipe(
         catchError((error) => {
+          console.error('Response interceptor catched error!');
           if (error instanceof HttpErrorResponse && error.status === 401) {
             localStorage.removeItem('token');
             this.router.navigateByUrl('/log-in');

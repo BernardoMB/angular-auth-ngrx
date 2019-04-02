@@ -10,8 +10,11 @@ import { LogInComponent } from './components/log-in/log-in.component';
 import { AuthService } from './services/auth.service';
 import { RootStoreModule } from './store';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { TokenInterceptor, ErrorInterceptor, /* ErrorInterceptor */ } from './services/token.interceptor';
+import { TokenInterceptor, ErrorInterceptor } from './services/token.interceptor';
 import { StatusComponent } from './components/status/status.component';
+import { AuthGuardService } from './services/auth-guard.service';
+import { environment } from 'src/environments/environment';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 @NgModule({
   declarations: [
@@ -26,10 +29,12 @@ import { StatusComponent } from './components/status/status.component';
     AppRoutingModule,
     FormsModule,
     RootStoreModule,
+    !environment.production ? StoreDevtoolsModule.instrument() : [],
     HttpClientModule
   ],
   providers: [
     AuthService,
+    AuthGuardService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
