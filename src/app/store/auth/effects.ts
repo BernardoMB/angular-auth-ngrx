@@ -6,6 +6,7 @@ import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import * as featureActions from './actions';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
+import { User } from 'src/app/models/user';
 
 // TODO: Implement all effecs
 @Injectable()
@@ -19,6 +20,7 @@ export class AuthStoreEffects {
             featureActions.AuthActionTypes.LogIn
         ),
         switchMap(action => {
+            console.log('Login effect triggered');
             return this.authService
                 .logIn(action.payload.email, action.payload.password)
                 .pipe(
@@ -102,13 +104,17 @@ export class AuthStoreEffects {
     );
 
     @Effect({ dispatch: false })
-    getStatusEffect: Observable<Action> = this.actions$.pipe(
+    getStatusEffect: Observable<any> = this.actions$.pipe(
         ofType<featureActions.GetStatus>(
             featureActions.AuthActionTypes.GetStatus
         ),
-        tap((action: featureActions.GetStatus) => {
+        switchMap((payload) => {
+            console.log('Effect getting status');
             return this.authService.getStatus();
         })
     );
 
 }
+
+
+

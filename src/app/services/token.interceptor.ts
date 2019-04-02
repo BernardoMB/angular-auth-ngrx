@@ -5,7 +5,7 @@ import {
 
 import { AuthService } from './auth.service';
 import { Router } from '@angular/router';
-import { Observable, of as observableOf, throwError } from 'rxjs';
+import { Observable, of as observableOf } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
 @Injectable()
@@ -13,7 +13,7 @@ export class TokenInterceptor implements HttpInterceptor {
   private authService: AuthService;
   constructor(private injector: Injector) { }
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    console.log('interceptando');
+    console.log('Interceptando request');
     this.authService = this.injector.get(AuthService);
     const token: string = this.authService.getToken();
     request = request.clone({
@@ -24,7 +24,6 @@ export class TokenInterceptor implements HttpInterceptor {
     });
     console.log('Request', request);
     return next.handle(request);
-
   }
 }
 
@@ -34,11 +33,12 @@ export class ErrorInterceptor implements HttpInterceptor {
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(request)
       .pipe(
-        catchError((response: HttpErrorResponse) => {
-          if (response instanceof HttpErrorResponse && response.status === 401) {
-            console.log(response);
+        catchError((error) => {
+          if (error instanceof HttpErrorResponse && error.status === 401) {
+            localStorage.removeItem('token');
+            this.router.navigateByUrl('/log-in');
           }
-          return throwError(response);
+          return observableOf(error);
         })
       );
   }

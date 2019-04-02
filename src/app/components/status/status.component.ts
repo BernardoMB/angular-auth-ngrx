@@ -13,7 +13,8 @@ export class StatusComponent implements OnInit {
   constructor(private store: Store<RootStoreState.State>) { }
 
   ngOnInit() {
-    this.store.dispatch(new GetStatus());
+    console.log('Dispatching getting status action');
+    this.store.dispatch(new GetStatus({}));
   }
 
 }

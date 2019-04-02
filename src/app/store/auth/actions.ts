@@ -60,6 +60,7 @@ export class LogOutFailure implements Action {
 
 export class GetStatus implements Action {
     readonly type = AuthActionTypes.GetStatus;
+    constructor(public payload: any) { }
 }
 
 export type Actions = LogIn

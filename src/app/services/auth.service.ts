@@ -12,8 +12,9 @@ export class AuthService {
   constructor(private http: HttpClient) { }
 
   getStatus(): Observable<User> {
+    console.log('Service getting status');
     const url = `${this.BASE_URL}/status`;
-    return this.http.get<User>(url);
+    return this.http.get<any>(url);
   }
 
   getToken(): string {

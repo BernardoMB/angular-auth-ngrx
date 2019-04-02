@@ -10,7 +10,7 @@ import { LogInComponent } from './components/log-in/log-in.component';
 import { AuthService } from './services/auth.service';
 import { RootStoreModule } from './store';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { TokenInterceptor, ErrorInterceptor } from './services/token.interceptor';
+import { TokenInterceptor, ErrorInterceptor, /* ErrorInterceptor */ } from './services/token.interceptor';
 import { StatusComponent } from './components/status/status.component';
 
 @NgModule({
