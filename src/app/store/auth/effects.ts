@@ -20,16 +20,17 @@ export class AuthStoreEffects {
             featureActions.AuthActionTypes.LogIn
         ),
         switchMap(action => {
-            console.log('Login effect triggered');
             return this.authService
                 .logIn(action.payload.email, action.payload.password)
                 .pipe(
-                    map((user) => {
+                    switchMap((user) => {
                         console.log(user);
-                        return new featureActions.LogInSuccess({ token: user.token, email: action.payload.email });
+                        //return new featureActions.LogInSuccess({ token: user.token, email: action.payload.email });
+                        return observableOf(new featureActions.LogInSuccess({ token: user.token, email: action.payload.email }));
                     }),
                     catchError(error => {
-                        console.log(error);
+                        //console.log(error);
+                        console.log('Effect: catching error');
                         return observableOf(new featureActions.LogInFailure({ error }));
                     })
                 );
