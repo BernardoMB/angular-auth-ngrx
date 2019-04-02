@@ -46,7 +46,7 @@ Check out the [blog post](http://mherman.org/blog/2018/04/17/authentication-in-a
 
 1. Fork/Clone
 1. Install dependencies - `npm install`
-1. Run the development server - `ng serve`
+1. Run the development server - `ng serve` 
 
 You will need to also spin up a back-end with the following routes:
 
