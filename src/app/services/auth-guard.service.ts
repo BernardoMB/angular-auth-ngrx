@@ -21,6 +21,7 @@ export class AuthGuardService implements CanActivate {
   }
 
   canActivate(): boolean {
+    console.log('Checking has atheticated state and the local storage has the token');
     this.getState.subscribe((state) => {
       this.isAuthenticated = state.isAuthenticated;
     });

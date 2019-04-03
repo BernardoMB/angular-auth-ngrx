@@ -7,10 +7,13 @@ import { StatusComponent } from './components/status/status.component';
 import { AuthGuardService } from './services/auth-guard.service';
 
 const routes: Routes = [
+  // If a admin panel app requieres a landing page, the auth guard below should be removed.
+  { path: '', component: LandingComponent, /* canActivate: [AuthGuardService] */ },
   { path: 'log-in', component: LogInComponent },
+  // Sign-up route should be disabled if the app requires no sign-up.
   { path: 'sign-up', component: SignUpComponent },
+  // Status is a development feature and can also be disabled.
   { path: 'status', component: StatusComponent, canActivate: [AuthGuardService] },
-  { path: '', component: LandingComponent },
   { path: '**', redirectTo: '/' }
 ];
 
