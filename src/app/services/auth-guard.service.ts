@@ -21,7 +21,7 @@ export class AuthGuardService implements CanActivate {
   }
 
   canActivate(): boolean {
-    console.log('Checking has atheticated state and the local storage has the token');
+    /*console.log('Checking has atheticated state and the local storage has the token');
     this.getState.subscribe((state) => {
       this.isAuthenticated = state.isAuthenticated;
     });
@@ -29,6 +29,17 @@ export class AuthGuardService implements CanActivate {
       this.router.navigateByUrl('/log-in');
       return false;
     }
+    return true;*/
+    
+    
+    console.log('Checking for any token...');
+    if (!this.auth.getToken()) {
+      console.log('No token found :( Redirecting to login page.');
+      this.router.navigateByUrl('/log-in');
+      return false;
+    }
+    console.log('Token found! Access granted.');
     return true;
+    
   }
 }
