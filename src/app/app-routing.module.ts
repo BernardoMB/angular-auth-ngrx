@@ -8,7 +8,7 @@ import { AuthGuardService } from './services/auth-guard.service';
 
 const routes: Routes = [
   // If a admin panel app requieres a landing page, the auth guard below should be removed.
-  { path: '', component: LandingComponent, /* canActivate: [AuthGuardService] */ },
+  { path: '', component: LandingComponent/* , canActivate: [AuthGuardService] */ },
   { path: 'log-in', component: LogInComponent },
   // Sign-up route should be disabled if the app requires no sign-up.
   { path: 'sign-up', component: SignUpComponent },

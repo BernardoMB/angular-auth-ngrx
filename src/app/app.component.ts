@@ -5,10 +5,10 @@ import { Component, OnInit, AfterViewInit } from '@angular/core';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit, AfterViewInit {
+export class AppComponent /* implements OnInit, AfterViewInit */ {
   title = 'angular-auth-ngrx';
 
-  constructor() {
+  /* constructor() {
     console.log('Constructing app component');
   }
 
@@ -18,6 +18,6 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     console.log('View initialized');
-  }
+  } */
 
 }
